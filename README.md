@@ -217,7 +217,7 @@ create an index.html file in same location where app.js is placed.
 **STEP 6: NODE.JS WILL INTERPRET AND EXECUTE THE CODE IN THE server.js FILE. THIS IS A COMMON PATTERN FOR RUNNING SERVER-SIDE JAVASCRIPT APPLICATIONS.**
 
 ```bash
-node server.js
+node app.js
 ```
 
 **After following these steps, your Node.js server should be up and running.**
@@ -245,12 +245,12 @@ pm2 list   (or) pm ls
 **Start app/services with name**
 
 ```bash
-pm2 start server.js --name "my-app1"
+pm2 start app.js --name "my-app1"
 ```
 **Stop app/services with name**
 
 ```bash
-pm2 stop server.js --name "my-app1"
+pm2 stop app.js --name "my-app1"
 ```
 
 **Command to list the logs**
