@@ -53,9 +53,9 @@ app.use(bodyParser.json());
 
 // AWS SNS configuration
 AWS.config.update({
-  accessKeyId: 'YOUR-ACCESS-KEY',
-  secretAccessKey: 'YOUR-SECRET-KEY',
-  region: 'YOUR-REGION',
+  accessKeyId: 'YOUR-ACCESS-KEY',      // Replace with your keys
+  secretAccessKey: 'YOUR-SECRET-KEY',  // Replace with your keys
+  region: 'YOUR-REGION',              // Replace with your AWS region
 });
 
 const sns = new AWS.SNS();
@@ -67,7 +67,7 @@ app.post('/send-email', async (req, res) => {
 
     // AWS SNS Publish
     await sns.publish({
-      TopicArn: 'YOUR-SNS-TOPIC-ARN',
+      TopicArn: 'YOUR-SNS-TOPIC-ARN',          // Replace with your SNS TOpic ARN
       Message: message,
       Subject: subject || 'Default Subject',
     }).promise();
