@@ -37,9 +37,11 @@ npm install express aws-sdk body-parser
 
 Create a file named `app.js` with the provided the below content.
 
-Make sure to Replace ACCESSKEY, SECRETKEY, SNS TOPIC ARN and REGION.
+***Make sure to Replace ACCESSKEY, SECRETKEY, SNS TOPIC ARN and REGION.***
+
 
 ```bash
+// with accesskey and secret access key method
 const express = require('express');
 const bodyParser = require('body-parser');
 const AWS = require('aws-sdk');
@@ -88,6 +90,55 @@ app.listen(port, () => {
 });
 
 ```
+
+
+***if you are deploying with-in an ec2 instance, Want to Use IAM Roles option, then refer below app.js file***
+
+```bash
+const express = require('express');
+const bodyParser = require('body-parser');
+const AWS = require('aws-sdk');
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.use(bodyParser.json());
+
+// AWS SNS configuration with IAM role
+AWS.config.region = 'ap-south-1'; 			// Replace with your AWS region
+const sns = new AWS.SNS();
+
+// Route to handle email sending
+app.post('/send-email', async (req, res) => {
+  try {
+    const { email, subject, message } = req.body;
+
+    // AWS SNS Publish
+    await sns.publish({
+      TopicArn: 'arn:aws:sns:ap-south-1:1234567890:My-S3-Alerts',	// Replace with your SNS TOpic ARN
+      Message: message,
+      Subject: subject || 'Default Subject',
+    }).promise();
+
+    res.json({ success: true, message: 'Email sent successfully!' });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ success: false, message: 'Error sending email.' });
+  }
+});
+
+// Default route handler serving HTML file
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
+
+// Start server
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+
+```
+
 
 this script creates a basic web server that listens on default port 3000, reads the content of an `index.html` file, and sends it as the response when a request is made to the server. The server logs a message indicating that it is running on `http://localhost:3000`.
 
