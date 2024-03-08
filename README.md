@@ -33,7 +33,7 @@ npm install express aws-sdk body-parser
 ```
 
 
-**STEP 4: CREATE A server.js FILE AND RUN IT.**
+**STEP 4: CREATE A app.js FILE AND RUN IT.**
 
 Create a file named `app.js` with the provided the below content.
 
